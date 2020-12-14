@@ -1,4 +1,4 @@
-package cn.skyjilygao.springboot.core.enums;
+package cn.skyjilygao.springboot.controller;
 
 /**
  * 返回消息枚举类: 此枚举类主要是对 Http Status 的补充，尽量出现重复。主要是相关业务状态码

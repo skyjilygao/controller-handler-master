@@ -1,7 +1,7 @@
 package cn.skyjilygao.springboot.core;
 
 import cn.skyjilygao.springboot.core.enums.HttpStatus;
-import cn.skyjilygao.springboot.core.enums.ReturnTEnum;
+import cn.skyjilygao.springboot.controller.ReturnTEnum;
 import lombok.Getter;
 
 import java.io.Serializable;

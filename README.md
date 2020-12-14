@@ -33,7 +33,7 @@
 
 为了能够更好统一返回状态信息，捕获异常需要同时状态码和状态信息，怎么办？使用自定义异常类`SkyException`
 
--1. 增加了枚举类`cn.skyjilygao.springboot.core.enums.ReturnTEnum`也可以使用`HttpStatus`.
+-1. 增加了枚举类`cn.skyjilygao.springboot.controller.ReturnTEnum`也可以使用`HttpStatus`.
 
 -2. 异常类`SkyException`
 ```java
@@ -92,6 +92,13 @@ public class SkyException extends SkyExceptionBase {
 
 ### 4. 日志记录
 使用`logback`记录，保留最近3天的日志
+
+## 如何移至到自己的项目中
+1. 将`cn.skyjilygao.springboot.core`下所有文件复制到自己项目公共模块或第三方库中，重新编译安装
+2. 将`ReturnTEnum`,`BaseController`,`SkyException`复制到项目的公共文件夹中。然后在`ReturnTEnum`增加自定义枚举即可
+
+## 如何使用
+1. 使用本项目测试时，只需在`ReturnTEnum`增加自定义枚举即可
 
 
 

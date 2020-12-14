@@ -1,7 +1,6 @@
 package cn.skyjilygao.springboot.controller;
 
 import cn.skyjilygao.springboot.core.ReturnT;
-import cn.skyjilygao.springboot.core.enums.ReturnTEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package cn.skyjilygao.springboot.core.interceptor;
 
 import cn.skyjilygao.springboot.core.ReturnT;
-import cn.skyjilygao.springboot.core.enums.ReturnTEnum;
+import cn.skyjilygao.springboot.controller.ReturnTEnum;
 import cn.skyjilygao.springboot.core.exception.SkyExceptionBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
