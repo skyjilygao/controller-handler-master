@@ -1,6 +1,7 @@
 package cn.skyjilygao.springboot.core.interceptor;
 
 import cn.skyjilygao.springboot.core.ReturnT;
+import cn.skyjilygao.springboot.core.enums.ReturnTEnum;
 import cn.skyjilygao.springboot.core.exception.SkyExceptionBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
@@ -52,7 +53,7 @@ public class GlobalExceptionHandler {
 	public ReturnT defaulExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
 		String uri = getUri(request);
 		log.error("handler Exception: request uri={}. with error message={}", uri, e.getMessage(), e);
-		return new ReturnT(ReturnT.FAIL_CODE, "服务器内部异常", uri);
+		return new ReturnT(ReturnTEnum.ERROR.getCode(), "服务器内部异常", uri);
 	}
 
 

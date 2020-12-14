@@ -16,6 +16,9 @@ public enum ReturnTEnum {
     PARAMETER_EMPTY(210,"参数为空"),
     PARAMETER_INVALID(211,"参数错误"),
 
+    ARITHMETIC_ERROR(212,"计算错误"),
+
+
     DATE_ERROR_FORMAT_ERROR(212,"日期格式错误"),
     DATE_ERROR_START_LARGE_END(213,"开始时间大于结束时间"),
 
