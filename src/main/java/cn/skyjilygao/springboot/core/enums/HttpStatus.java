@@ -1,4 +1,4 @@
-package cn.skyjilygao.springboot.controller;
+package cn.skyjilygao.springboot.core.enums;
 
 import org.springframework.lang.Nullable;
 

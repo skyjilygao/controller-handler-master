@@ -1,29 +1,39 @@
-package cn.skyjilygao.springboot.controller;
+package cn.skyjilygao.springboot.core.exception;
 
+
+import cn.skyjilygao.springboot.core.enums.HttpStatus;
 
 /**
- *
+ * 自定义异常基础类
+ * @author skyjilygao
+ * @since 1.0
  */
-public class PwExceptionBase extends RuntimeException {
+public class SkyExceptionBase extends RuntimeException {
 
+    /**
+     * 状态码：用于接口返回状态code
+     */
     protected int httpCode;
+    /**
+     * 状态信息：用户接口返回code说明
+     */
     protected String httpMessage;
 
-    public PwExceptionBase(HttpStatus httpStatus) {
+    public SkyExceptionBase(HttpStatus httpStatus) {
         super(httpStatus.getReasonPhrase());
         setHttpInfo(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
-    public PwExceptionBase(HttpStatus httpStatus, Exception e) {
+    public SkyExceptionBase(HttpStatus httpStatus, Exception e) {
         super(e);
         setHttpInfo(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
-    public PwExceptionBase(int httpCode, String httpMessage) {
+    public SkyExceptionBase(int httpCode, String httpMessage) {
         super(httpMessage);
         setHttpInfo(httpCode, httpMessage);
     }
-    public PwExceptionBase(int httpCode, String httpMessage, Exception e) {
+    public SkyExceptionBase(int httpCode, String httpMessage, Exception e) {
         super(e);
         setHttpInfo(httpCode, httpMessage);
     }
