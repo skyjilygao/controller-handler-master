@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration scan="true" scanPeriod="3 seconds">
+    <!-- 项目名称及日志目录定义 -->
+    <property name="PROJECT_NAME" value="controller-handler-master"/>
+    <property name="BASE_LOG_PATH" value="../logs/${PROJECT_NAME}"/>
+    <property name="SERVER_LOG_PATH" value="${BASE_LOG_PATH}"/>
+    <!-- 日志文件最大容量，超过则切分 -->
+    <property name="MAX_FILE_SIZE" value="10MB"/>
+    <!-- 保留日志最长历史记录 -->
+    <property name="MAX_HISTORY" value="3"/>
+    <!-- 整个日志最大大小 -->
+    <property name="TOTAL_SIZE_CAP" value="10GB"/>
+
+    <!-- 日志输出格式
+     %d{yyyy-MM-dd HH:mm:ss.SSS} 年月日时分秒毫秒
+     [%thread] 线程
+     %-5level 日志级别
+     %logger 包名输出精度：不写{x}精度，表示输出完整包名路径
+        %logger{32}只输出方法名，包名为缩写首字母：c.p.a.m.d.w.findByOpenId
+        %logger{36}只输出方法名和上一级包名，包名为缩写首字母：c.p.a.m.d.WxUserMapper.findByOpenId
+     -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"/>
+
+    <!-- 控制台 -->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <!-- 文件：日常运行日志 -->
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SERVER_LOG_PATH}/run_log.log</file>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--输出路径-->
+            <!-- %d{yyyy-MM-dd} 与 %d 效果一样 -->
+            <fileNamePattern>${SERVER_LOG_PATH}/%d{yyyy-MM-dd}/runLog/run_log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- 最多保留天数，超过则删除 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件：错误运行日志 -->
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SERVER_LOG_PATH}/error_log.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--输出路径-->
+            <fileNamePattern>${SERVER_LOG_PATH}/%d{yyyy-MM-dd}/errorLog/error_log.%d.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- 最多保留天数，超过则删除 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 文件：警告运行日志 -->
+    <appender name="fileWarnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SERVER_LOG_PATH}/warn_log.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--输出路径-->
+            <fileNamePattern>${SERVER_LOG_PATH}/%d{yyyy-MM-dd}/warnLog/warn_log.%d.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- 最多保留天数，超过则删除 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+    logger
+       属性：
+          1)name:用来指定受此logger约束的某一个包或者具体的某一个类
+          2)level:用来设置打印级别，大小写无关（最常用的几种）：DEBUG, INFO, WARN, ERROR
+    -->
+
+    <!-- 用于打印 Spring 在启动的时候初始化各个 Bean 的信息 -->
+    <!--<logger name="org.springframework.web" level="DEBUG"/>-->
+
+    <!-- 以下这一句至关重要如果没有，就无法输出 sql 语句
+        注意：在 spring boot 中，想在控制台打印 mybatis 的 sql 语句，只需要配置下边这一句就好了。
+        如果想要记录更详细的 SQL 日志，只需要把下面的日志级别改成 TRACE / DEBUG 就可以了。注：INFO时不会打印sql
+        即将 mapper 接口加入 logger 就行。
+    -->
+    <!--<logger name="cn.skyjilygao.springboot.dao" level="DEBUG"></logger>-->
+
+    <root level="info">
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileLog"/>
+        <appender-ref ref="fileErrorLog"/>
+        <appender-ref ref="fileWarnLog"/>
+    </root>
+</configuration>
