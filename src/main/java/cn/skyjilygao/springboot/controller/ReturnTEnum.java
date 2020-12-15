@@ -28,10 +28,8 @@ public enum ReturnTEnum {
 
     ;
 
-
     private int code;
     private String msg;
-
 
     @Override
     public String toString() {
