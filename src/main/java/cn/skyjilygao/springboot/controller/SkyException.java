@@ -1,6 +1,7 @@
 package cn.skyjilygao.springboot.controller;
 
-import cn.skyjilygao.springboot.core.enums.HttpStatus;
+
+import cn.skyjilygao.springboot.core.ReturnTResponse;
 import cn.skyjilygao.springboot.core.exception.SkyExceptionBase;
 
 /**
@@ -10,19 +11,11 @@ import cn.skyjilygao.springboot.core.exception.SkyExceptionBase;
  */
 public class SkyException extends SkyExceptionBase {
 
-    public SkyException(ReturnTEnum httpStatus) {
+    public SkyException(ReturnTResponse httpStatus) {
         super(httpStatus.getCode(), httpStatus.getMsg());
     }
 
-    public SkyException(ReturnTEnum httpStatus, Exception e) {
+    public SkyException(ReturnTResponse httpStatus, Exception e) {
         super(httpStatus.getCode(), httpStatus.getMsg(), e);
-    }
-
-    public SkyException(HttpStatus httpStatus) {
-        super(httpStatus);
-    }
-
-    public SkyException(HttpStatus httpStatus, Exception e) {
-        super(httpStatus, e);
     }
 }

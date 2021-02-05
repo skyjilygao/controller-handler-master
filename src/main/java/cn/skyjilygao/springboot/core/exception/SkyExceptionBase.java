@@ -1,7 +1,7 @@
 package cn.skyjilygao.springboot.core.exception;
 
 
-import cn.skyjilygao.springboot.core.enums.HttpStatus;
+import cn.skyjilygao.springboot.core.ReturnTResponse;
 
 /**
  * 自定义异常基础类
@@ -19,14 +19,14 @@ public class SkyExceptionBase extends RuntimeException {
      */
     protected String httpMessage;
 
-    public SkyExceptionBase(HttpStatus httpStatus) {
-        super(httpStatus.getReasonPhrase());
-        setHttpInfo(httpStatus.value(), httpStatus.getReasonPhrase());
+    public SkyExceptionBase(ReturnTResponse httpStatus) {
+        super(httpStatus.getMsg());
+        setHttpInfo(httpStatus);
     }
 
-    public SkyExceptionBase(HttpStatus httpStatus, Exception e) {
+    public SkyExceptionBase(ReturnTResponse httpStatus, Exception e) {
         super(e);
-        setHttpInfo(httpStatus.value(), httpStatus.getReasonPhrase());
+        setHttpInfo(httpStatus);
     }
 
     public SkyExceptionBase(int httpCode, String httpMessage) {
@@ -45,6 +45,10 @@ public class SkyExceptionBase extends RuntimeException {
 
     public String getHttpMessage() {
         return httpMessage;
+    }
+
+    protected void setHttpInfo(ReturnTResponse tResponse) {
+        setHttpInfo(tResponse.getCode(), tResponse.getMsg());
     }
 
     protected void setHttpInfo(int httpCode, String httpMessage) {

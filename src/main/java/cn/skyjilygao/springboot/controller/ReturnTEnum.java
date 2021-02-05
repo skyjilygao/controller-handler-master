@@ -1,5 +1,8 @@
 package cn.skyjilygao.springboot.controller;
 
+
+import cn.skyjilygao.springboot.core.ReturnTResponse;
+
 /**
  * 返回消息枚举类: 此枚举类主要是对 Http Status 的补充，尽量出现重复。主要是相关业务状态码
  *
@@ -8,10 +11,11 @@ package cn.skyjilygao.springboot.controller;
  * @date 20201210
  * @since 1.8
  */
-public enum ReturnTEnum {
+public enum ReturnTEnum implements ReturnTResponse {
     SUCCESS(200, "SUCCESS"),
     ERROR(500, "服务异常"),
-    UNKNOWN_ERROR(5000, "未知错误"),
+    ERROR_FAIL(5100, "错误"),
+    ERROR_UNKNOWN(5102, "未知错误"),
 
     PARAMETER_EMPTY(210,"参数为空"),
     PARAMETER_INVALID(211,"参数错误"),
@@ -36,6 +40,7 @@ public enum ReturnTEnum {
         return super.toString();
     }
 
+    @Override
     public int getCode() {
         return code;
     }
@@ -44,6 +49,7 @@ public enum ReturnTEnum {
         this.code = code;
     }
 
+    @Override
     public String getMsg() {
         return msg;
     }
@@ -51,6 +57,7 @@ public enum ReturnTEnum {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
 
     private ReturnTEnum(int code, String msg) {
         this.code = code;

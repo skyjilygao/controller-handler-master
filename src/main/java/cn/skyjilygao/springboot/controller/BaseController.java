@@ -1,7 +1,7 @@
 package cn.skyjilygao.springboot.controller;
 
 import cn.skyjilygao.springboot.core.ReturnT;
-import cn.skyjilygao.springboot.core.enums.HttpStatus;
+import cn.skyjilygao.springboot.core.ReturnTResponse;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -24,54 +24,29 @@ public abstract class BaseController {
 		return response(ReturnTEnum.SUCCESS, content);
 	}
 
-	protected <T> ReturnT<T> success(ReturnTEnum resultEnum) {
+	protected <T> ReturnT<T> success(ReturnTResponse resultEnum) {
 		return response(resultEnum);
 	}
 
-	protected <T> ReturnT<T> success(ReturnTEnum resultEnum, T content) {
+	protected <T> ReturnT<T> success(ReturnTResponse resultEnum, T content) {
 		return response(resultEnum, content);
 	}
 
-
-	protected <T> ReturnT<T> success(HttpStatus status) {
-		return response(status);
-	}
-
-	protected <T> ReturnT<T> success(HttpStatus status, T content) {
-		return response(status, content);
-	}
-
-	protected <T> ReturnT<T> error(ReturnTEnum resultEnum) {
+	protected <T> ReturnT<T> error(ReturnTResponse resultEnum) {
 		return response(resultEnum);
 	}
 
-	protected <T> ReturnT<T> error(ReturnTEnum resultEnum, Exception e) {
+	protected <T> ReturnT<T> error(ReturnTResponse resultEnum, Exception e) {
 		throw new SkyException(resultEnum, e);
 	}
 
-	protected <T> ReturnT<T> error(HttpStatus status) {
-		return response(status);
-	}
-	protected <T> ReturnT<T> error(HttpStatus status, Exception e) {
-		throw new SkyException(status, e);
-	}
-
-	protected <T> ReturnT<T> response(ReturnTEnum resultEnum) {
+	protected <T> ReturnT<T> response(ReturnTResponse resultEnum) {
 		return response(resultEnum.getCode(), resultEnum.getMsg(), null);
 	}
 
-	protected <T> ReturnT<T> response(ReturnTEnum resultEnum, T content) {
+	protected <T> ReturnT<T> response(ReturnTResponse resultEnum, T content) {
 		return response(resultEnum.getCode(), resultEnum.getMsg(), content);
 	}
-
-	protected <T> ReturnT<T> response(HttpStatus status) {
-		return response(status.value(), status.getReasonPhrase(), null);
-	}
-
-	protected <T> ReturnT<T> response(HttpStatus status, T content) {
-		return response(status.value(), status.getReasonPhrase(), content);
-	}
-
 
 	private <T> ReturnT<T> response(int code, String msg, T obj) {
 		return new ReturnT<T>(code, msg, obj);

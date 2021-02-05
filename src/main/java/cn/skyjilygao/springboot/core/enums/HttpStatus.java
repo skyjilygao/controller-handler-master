@@ -1,5 +1,6 @@
 package cn.skyjilygao.springboot.core.enums;
 
+import cn.skyjilygao.springboot.core.ReturnTResponse;
 import org.springframework.lang.Nullable;
 
 /**
@@ -9,10 +10,10 @@ import org.springframework.lang.Nullable;
  *
  * @author skyjilygao
  * @since 1.0
- * @see HttpStatus.Series
+ * @see Series
  * @see <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/http/HttpStatus.java">spring-framework-web#HttpStatus</a>
  */
-public enum HttpStatus {
+public enum HttpStatus implements ReturnTResponse {
 
 	// 1xx Informational
 
@@ -419,7 +420,7 @@ public enum HttpStatus {
 
 	/**
 	 * Return the HTTP status series of this status code.
-	 * @see HttpStatus.Series
+	 * @see Series
 	 */
 	public Series series() {
 		return this.series;
@@ -539,6 +540,15 @@ public enum HttpStatus {
 		return null;
 	}
 
+	@Override
+	public int getCode() {
+		return value;
+	}
+
+	@Override
+	public String getMsg() {
+		return getReasonPhrase();
+	}
 
 	/**
 	 * Enumeration of HTTP status series.
