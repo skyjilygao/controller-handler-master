@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
 	public ReturnT defaulExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
 		String uri = getUri(request);
 		log.error("handler Exception: request uri={}. with error message={}", uri, e.getMessage(), e);
-		return new ReturnT(ReturnTEnum.ERROR.getCode(), "服务器内部异常", uri);
+		return new ReturnT(ReturnTEnum.ERROR.getCode(), ReturnTEnum.ERROR.getMsg(), uri);
 	}
 
 

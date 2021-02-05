@@ -10,8 +10,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 获取请求信息
@@ -23,17 +21,13 @@ import java.util.Set;
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-	private static Set<String> restrictUrl = new HashSet<>();
-
-	static {
-		restrictUrl.add("/recharge");
-	}
-
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 		ServletRequestPojo pojo = new ServletRequestPojo(request);
+		// 记录请求信息，可以最终数据。注意：这里只能针对get请求，post请求无效。
 		log.info("request info=" + pojo.toString());
 		String ip = RequestUtil.getIPAddress(request);
+		// ip控制访问
 		if(!RequestUtil.isAllow(ip)){
 			log.info("error_code: 2550, ip=" + ip + ",不再白名单，无法访问");
 			throw new SkyException(HttpStatus.FORBIDDEN, new Exception("ip=" + ip + ",不再白名单，无法访问"));

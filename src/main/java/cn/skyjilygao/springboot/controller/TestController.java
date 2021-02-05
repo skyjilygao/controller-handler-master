@@ -29,9 +29,9 @@ public class TestController extends BaseController {
             int b = 0;
             return success(a/b);
         }catch (Exception e){
-//            return error(ReturnTEnum.ARITHMETIC_ERROR, e);
             throw new SkyException(ReturnTEnum.ARITHMETIC_ERROR, e);
+            // return error(ReturnTEnum.ARITHMETIC_ERROR, e);
+            // throw new SkyException(HttpStatus.BAD_GATEWAY, e);
         }
-
     }
 }
